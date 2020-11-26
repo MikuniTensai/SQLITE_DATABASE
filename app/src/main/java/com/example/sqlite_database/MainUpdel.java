@@ -40,7 +40,7 @@ public class MainUpdel extends AppCompatActivity {
                     Toast.makeText(MainUpdel.this, "Silahkan isi kelas",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    db.UpdateMahasiswa(new Mahasiswa(Sid, Snama, Skelas));
+                    db.UpdateMahasiswa(new Komputer(Sid, Snama, Skelas));
                     Toast.makeText(MainUpdel.this, "Data telah diupdate",
                             Toast.LENGTH_SHORT).show();
                     finish();
@@ -51,7 +51,7 @@ public class MainUpdel extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.DeleteMahasiswa(new Mahasiswa(Sid, Snama, Skelas));
+                db.DeleteMahasiswa(new Komputer(Sid, Snama, Skelas));
                 Toast.makeText(MainUpdel.this, "Data telah dihapus",
                         Toast.LENGTH_SHORT).show();
                 finish();

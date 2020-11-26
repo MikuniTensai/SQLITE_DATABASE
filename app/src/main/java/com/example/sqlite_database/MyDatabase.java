@@ -36,7 +36,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     }
 
-    public void CreateMahasiswa (Mahasiswa mdNotif) {
+    public void CreateMahasiswa (Komputer mdNotif) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(tb_mhsiswa_id, mdNotif.get_id());
@@ -46,14 +46,14 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Mahasiswa> ReadMahasiswa() {
-        List<Mahasiswa> judulModelList = new ArrayList<Mahasiswa>();
+    public List<Komputer> ReadMahasiswa() {
+        List<Komputer> judulModelList = new ArrayList<Komputer>();
         String selectQuery = "SELECT * FROM " + tb_mahasiswa;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Mahasiswa mdKontak = new Mahasiswa();
+                Komputer mdKontak = new Komputer();
                 mdKontak.set_id(cursor.getString(0));
                 mdKontak.set_nama(cursor.getString(1));
                 mdKontak.set_kelas(cursor.getString(2));
@@ -63,7 +63,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.close();
         return judulModelList;
     }
-    public int UpdateMahasiswa (Mahasiswa mdNotif) {
+    public int UpdateMahasiswa (Komputer mdNotif) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(tb_mhsiswa_nama, mdNotif.get_nama());
@@ -71,7 +71,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         return db.update(tb_mahasiswa, values, tb_mhsiswa_id + " = ?",
                 new String[] { String.valueOf(mdNotif.get_id())});
     }
-    public void DeleteMahasiswa (Mahasiswa mdNotif) {
+    public void DeleteMahasiswa (Komputer mdNotif) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(tb_mahasiswa, tb_mhsiswa_id+ " = ?",
                 new String[]{String.valueOf(mdNotif.get_id())});

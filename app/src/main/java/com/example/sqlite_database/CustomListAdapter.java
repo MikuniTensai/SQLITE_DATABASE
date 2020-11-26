@@ -13,9 +13,9 @@ import java.util.List;
 public class CustomListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
-    private List<Mahasiswa> movieItems;
+    private List<Komputer> movieItems;
 
-    public CustomListAdapter(Activity activity, List<Mahasiswa> movieItems) {
+    public CustomListAdapter(Activity activity, List<Komputer> movieItems) {
         this.activity = activity;
         this.movieItems = movieItems;
     }
@@ -43,7 +43,7 @@ public class CustomListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.custom_list, null);
         TextView nama = (TextView) convertView.findViewById(R.id.text_nama);
         TextView kelas = (TextView) convertView.findViewById(R.id.text_kelas);
-        Mahasiswa m = movieItems.get(position);
+        Komputer m = movieItems.get(position);
         nama.setText("Nama : "+ m.get_nama());
         kelas.setText("Kelas : "+ m.get_kelas());
         return convertView;

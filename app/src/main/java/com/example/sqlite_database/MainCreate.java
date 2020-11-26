@@ -38,7 +38,7 @@ public class MainCreate extends AppCompatActivity {
                     Ekelas.setText("");
                     Toast.makeText(MainCreate.this, "Data telah ditambah",
                             Toast.LENGTH_SHORT).show();
-                    db.CreateMahasiswa(new Mahasiswa(null, Snama, Skelas));
+                    db.CreateMahasiswa(new Komputer(null, Snama, Skelas));
                     Intent a = new Intent(MainCreate.this, MainActivity.class);
                     startActivity(a);
                 }
