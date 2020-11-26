@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mListView.setClickable(true);
         ListKomputer();
         init();
-        //mpshh ahh
+        //halo sayang
     }
 
     @Override
