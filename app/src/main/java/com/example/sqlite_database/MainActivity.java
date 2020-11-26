@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mListView.setClickable(true);
         ListKomputer();
         init();
+        //hello
     }
 
     @Override
