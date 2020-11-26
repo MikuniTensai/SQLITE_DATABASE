@@ -11,16 +11,18 @@ import java.util.List;
 
 public class MyDatabase extends SQLiteOpenHelper {
     private static int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "db_kampus";
-    private static final String tb_mahasiswa = "tb_mahasiswa";
-    private static final String tb_mhsiswa_id = "id";
-    private static final String tb_mhsiswa_nama = "nama";
-    private static final String tb_mhsiswa_kelas = "kelas";
-    private static final String CREATE_TABLE_MAHASISWA = "CREATE TABLE " +
-            tb_mahasiswa + "("
-            + tb_mhsiswa_id + " INTEGER PRIMARY KEY ,"
-            + tb_mhsiswa_nama + " TEXT,"
-            + tb_mhsiswa_kelas + " TEXT " + ")";
+    //nama, processor, ram, storage, vga, monitor, psu, hsf, os, harga;
+    private static final String DATABASE_NAME = "db_rk";
+    private static final String tb_komputer = "tb_komputer";
+    private static final String tb_komputer_id = "id";
+    private static final String tb_komputer_gambar = "gambar";
+    private static final String tb_komputer_nama = "nama";
+    private static final String tb_komputer_harga = "harga";
+    private static final String CREATE_TABLE_KOMPUTER= "CREATE TABLE " +
+            tb_komputer + "("
+            + tb_komputer_id + " INTEGER PRIMARY KEY ,"
+            + tb_komputer_nama + " TEXT,"
+            + tb_komputer_harga + " TEXT " + ")";
 
     public MyDatabase (Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,7 +30,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_MAHASISWA);
+        db.execSQL(CREATE_TABLE_KOMPUTER);
     }
 
     @Override
@@ -36,19 +38,19 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     }
 
-    public void CreateMahasiswa (Komputer mdNotif) {
+    public void CreateKomputer (Komputer mdNotif) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(tb_mhsiswa_id, mdNotif.get_id());
-        values.put(tb_mhsiswa_nama, mdNotif.get_nama());
-        values.put(tb_mhsiswa_kelas, mdNotif.get_kelas());
-        db.insert(tb_mahasiswa, null, values);
+        values.put(tb_komputer_id, mdNotif.get_id());
+        values.put(tb_komputer_nama, mdNotif.get_nama());
+        values.put(tb_komputer_harga, mdNotif.get_harga());
+        db.insert(tb_komputer, null, values);
         db.close();
     }
 
-    public List<Komputer> ReadMahasiswa() {
+    public List<Komputer> ReadKomputer() {
         List<Komputer> judulModelList = new ArrayList<Komputer>();
-        String selectQuery = "SELECT * FROM " + tb_mahasiswa;
+        String selectQuery = "SELECT * FROM " + tb_komputer;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -56,24 +58,24 @@ public class MyDatabase extends SQLiteOpenHelper {
                 Komputer mdKontak = new Komputer();
                 mdKontak.set_id(cursor.getString(0));
                 mdKontak.set_nama(cursor.getString(1));
-                mdKontak.set_kelas(cursor.getString(2));
+                mdKontak.set_harga(cursor.getString(2));
                 judulModelList.add(mdKontak);
             } while (cursor.moveToNext());
         }
         db.close();
         return judulModelList;
     }
-    public int UpdateMahasiswa (Komputer mdNotif) {
+    public int UpdateKomputer (Komputer mdNotif) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(tb_mhsiswa_nama, mdNotif.get_nama());
-        values.put(tb_mhsiswa_kelas, mdNotif.get_kelas());
-        return db.update(tb_mahasiswa, values, tb_mhsiswa_id + " = ?",
+        values.put(tb_komputer_nama, mdNotif.get_nama());
+        values.put(tb_komputer_harga, mdNotif.get_harga());
+        return db.update(tb_komputer, values, tb_komputer_id + " = ?",
                 new String[] { String.valueOf(mdNotif.get_id())});
     }
-    public void DeleteMahasiswa (Komputer mdNotif) {
+    public void DeleteKomputer (Komputer mdNotif) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(tb_mahasiswa, tb_mhsiswa_id+ " = ?",
+        db.delete(tb_komputer, tb_komputer_id+ " = ?",
                 new String[]{String.valueOf(mdNotif.get_id())});
         db.close();
     }

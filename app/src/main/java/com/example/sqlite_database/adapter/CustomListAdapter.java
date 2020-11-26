@@ -1,4 +1,4 @@
-package com.example.sqlite_database;
+package com.example.sqlite_database.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.sqlite_database.Komputer;
+import com.example.sqlite_database.R;
 
 import java.util.List;
 
@@ -42,10 +45,10 @@ public class CustomListAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.custom_list, null);
         TextView nama = (TextView) convertView.findViewById(R.id.text_nama);
-        TextView kelas = (TextView) convertView.findViewById(R.id.text_kelas);
+        TextView harga = (TextView) convertView.findViewById(R.id.text_harga);
         Komputer m = movieItems.get(position);
         nama.setText("Nama : "+ m.get_nama());
-        kelas.setText("Kelas : "+ m.get_kelas());
+        harga.setText("Harga : "+ m.get_harga());
         return convertView;
     }
 }

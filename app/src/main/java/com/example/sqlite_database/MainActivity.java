@@ -1,19 +1,17 @@
 package com.example.sqlite_database;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.sqlite_database.adapter.CustomListAdapter;
 import com.example.sqlite_database.adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -48,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mListView.setClickable(true);
         ListKomputer();
         init();
-        //halo sayang
     }
 
     @Override
@@ -57,11 +54,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Komputer obj_itemDetails = (Komputer)o;
         String Sid = obj_itemDetails.get_id();
         String Snama = obj_itemDetails.get_nama();
-        String Skelas = obj_itemDetails.get_kelas();
+        String Sharga = obj_itemDetails.get_harga();
         Intent goUpdel = new Intent(MainActivity.this, MainUpdel.class);
         goUpdel.putExtra("Iid", Sid);
         goUpdel.putExtra("Inama", Snama);
-        goUpdel.putExtra("Ikelas", Skelas);
+        goUpdel.putExtra("Iharga", Sharga);
         startActivity(goUpdel);
     }
     @Override
@@ -73,12 +70,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void ListKomputer(){
         listKomputer.clear();
         mListView.setAdapter(adapter_off);
-        List<Komputer> contacts = db.ReadMahasiswa();
+        List<Komputer> contacts = db.ReadKomputer();
         for (Komputer cn : contacts) {
             Komputer judulModel = new Komputer();
             judulModel.set_id(cn.get_id());
             judulModel.set_nama(cn.get_nama());
-            judulModel.set_kelas(cn.get_kelas());
+            judulModel.set_harga(cn.get_harga());
             listKomputer.add(judulModel);
             if ((listKomputer.isEmpty()))
                 Toast.makeText(MainActivity.this, "Tidak ada data",
