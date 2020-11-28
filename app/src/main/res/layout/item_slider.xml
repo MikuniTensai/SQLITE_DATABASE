@@ -7,8 +7,8 @@
         android:id="@+id/image"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
-        android:src="@drawable/ic_settings"
-        android:scaleType="centerCrop"
+        android:src="@drawable/appbiodata"
+        android:scaleType="fitCenter"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 </FrameLayout>

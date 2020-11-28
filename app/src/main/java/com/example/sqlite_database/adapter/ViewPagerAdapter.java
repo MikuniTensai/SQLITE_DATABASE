@@ -5,12 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-
 import com.example.sqlite_database.R;
-
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends PagerAdapter {
