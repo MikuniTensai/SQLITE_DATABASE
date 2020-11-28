@@ -47,7 +47,7 @@ public class CustomCursorAdapter extends CursorAdapter {
         MyHolder holder = new MyHolder();
         holder.ListID = (TextView)v.findViewById(R.id.listID);
         holder.ListNama = (TextView)v.findViewById(R.id.listNama);
-        holder.ListNomor = (TextView)v.findViewById(R.id.listNomor);
+        holder.ListSelengkapnya = (TextView)v.findViewById(R.id.listSelengkapnya);
         holder.ListFoto = (ImageView)v.findViewById(R.id.listFoto);
 
         v.setTag(holder);
@@ -59,7 +59,7 @@ public class CustomCursorAdapter extends CursorAdapter {
         MyHolder holder = (MyHolder)view.getTag();
         holder.ListID.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_id)));
         holder.ListNama.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_nama)));
-        holder.ListNomor.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_nomor)));
+        holder.ListSelengkapnya.setText(cursor.getString(cursor.getColumnIndex(DBHelper.row_selengkapnya)));
         Glide.with(holder.ListFoto.getContext())
                 .load(cursor.getString(cursor.getColumnIndex(DBHelper.row_foto)))
                 .listener(new RequestListener<Drawable>() {
@@ -79,7 +79,7 @@ public class CustomCursorAdapter extends CursorAdapter {
     class MyHolder{
         TextView ListID;
         TextView ListNama;
-        TextView ListNomor;
+        TextView ListSelengkapnya;
         ImageView ListFoto;
     }
 }

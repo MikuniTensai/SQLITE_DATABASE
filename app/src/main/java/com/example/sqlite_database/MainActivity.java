@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     DBHelper helper;
     LayoutInflater inflater;
     View dialogView;
-    TextView Tv_Nomor, Tv_Nama, Tv_TempatLahir, Tv_JK, Tv_Tanggal, Tv_Alamat;
+    TextView Tv_Harga, Tv_Nama, Tv_TempatLahir, Tv_JK, Tv_Tanggal, Tv_Alamat, Tv_Selengkapnya;
 
     private static ViewPager mPager;
     private static int currentPage = 0;
-    private static final Integer[] img = {R.drawable.view1,R.drawable.view2, R.drawable.appbiodata, R.drawable.ic_launcher_background};
+    private static final Integer[] img = {R.drawable.view1,R.drawable.view2, R.drawable.view3, R.drawable.view4, R.drawable.view5, R.drawable.view6, R.drawable.view7, R.drawable.view8};
     private ArrayList<Integer>  ImgArray = new ArrayList<Integer>();
 
     @Override
@@ -122,19 +122,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         viewData.setView(dialogView);
                         viewData.setTitle("Lihat Data");
 
-                        Tv_Nomor = (TextView)dialogView.findViewById(R.id.tv_No);
+                        Tv_Harga = (TextView)dialogView.findViewById(R.id.tv_Harga);
                         Tv_Nama = (TextView)dialogView.findViewById(R.id.tv_Nama);
-                        Tv_TempatLahir = (TextView)dialogView.findViewById(R.id.tv_TempatLahir);
-                        Tv_Tanggal = (TextView)dialogView.findViewById(R.id.tv_Tanggal);
-                        Tv_JK = (TextView)dialogView.findViewById(R.id.tv_JK);
-                        Tv_Alamat = (TextView)dialogView.findViewById(R.id.tv_Alamat);
+                        Tv_Selengkapnya = (TextView)dialogView.findViewById(R.id.tv_Selengkapnya);
+//                        Tv_TempatLahir = (TextView)dialogView.findViewById(R.id.tv_TempatLahir);
+//                        Tv_Tanggal = (TextView)dialogView.findViewById(R.id.tv_Tanggal);
+//                        Tv_JK = (TextView)dialogView.findViewById(R.id.tv_JK);
+//                        Tv_Alamat = (TextView)dialogView.findViewById(R.id.tv_Alamat);
 
-                        Tv_Nomor.setText("Nomor: " + cur.getString(cur.getColumnIndex(DBHelper.row_nomor)));
+                        Tv_Harga.setText("Harga: " + cur.getString(cur.getColumnIndex(DBHelper.row_harga)));
                         Tv_Nama.setText("Nama: " + cur.getString(cur.getColumnIndex(DBHelper.row_nama)));
-                        Tv_TempatLahir.setText("Tempat Lahir: " + cur.getString(cur.getColumnIndex(DBHelper.row_tempatLahir)));
-                        Tv_JK.setText("Jenis Kelamin: " + cur.getString(cur.getColumnIndex(DBHelper.row_jk)));
-                        Tv_Tanggal.setText("Tanggal Lahir: " + cur.getString(cur.getColumnIndex(DBHelper.row_tglLahir)));
-                        Tv_Alamat.setText("Alamat: " + cur.getString(cur.getColumnIndex(DBHelper.row_alamat)));
+                        Tv_Selengkapnya.setText("Selengkapnya: " + cur.getString(cur.getColumnIndex(DBHelper.row_selengkapnya)));
+//                        Tv_TempatLahir.setText("Tempat Lahir: " + cur.getString(cur.getColumnIndex(DBHelper.row_tempatLahir)));
+//                        Tv_JK.setText("Jenis Kelamin: " + cur.getString(cur.getColumnIndex(DBHelper.row_jk)));
+//                        Tv_Tanggal.setText("Tanggal Lahir: " + cur.getString(cur.getColumnIndex(DBHelper.row_tglLahir)));
+//                        Tv_Alamat.setText("Alamat: " + cur.getString(cur.getColumnIndex(DBHelper.row_alamat)));
 
                         viewData.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -211,6 +213,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void run() {
                 handler.post(Update);
             }
-        }, 5000, 1100);
+        }, 10000, 1500);
     }
 }

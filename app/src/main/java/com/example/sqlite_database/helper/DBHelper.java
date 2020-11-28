@@ -11,14 +11,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String database_name = "db_biodata";
     public static final String table_name = "tabel_biodata";
 
+    //done
     public static final String row_id = "_id";
-    public static final String row_nomor = "Nomor";
     public static final String row_nama = "Nama";
-    public static final String row_jk = "JK";
-    public static final String row_tempatLahir = "TempatLahir";
-    public static final String row_tglLahir = "Tanggal";
-    public static final String row_alamat = "Alamat";
     public static final String row_foto = "Foto";
+    public static final String row_harga = "harga";
+    public static final String row_selengkapnya = "selengkapnya";
+    //belom
+//    public static final String row_jk = "JK";
+//    public static final String row_tempatLahir = "TempatLahir";
+//    public static final String row_tglLahir = "Tanggal";
+//    public static final String row_alamat = "Alamat";
 
     private SQLiteDatabase db;
 
@@ -30,8 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + table_name + "(" + row_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + row_nomor + " TEXT, " + row_nama + " TEXT, " + row_jk + " TEXT, "
-                + row_tempatLahir + " TEXT, " + row_tglLahir + " TEXT, " + row_alamat + " TEXT, " + row_foto + " TEXT)";
+                + row_harga + " TEXT, " + row_nama + " TEXT, " + row_foto + " TEXT, " + row_selengkapnya + " TEXT)";
         db.execSQL(query);
     }
 

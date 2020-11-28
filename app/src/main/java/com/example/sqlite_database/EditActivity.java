@@ -35,7 +35,7 @@ import java.util.Locale;
 public class EditActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxNomor, TxNama, TxTempatLahir, TxTanggal, TxAlamat;
+    EditText TxHarga, TxNama, TxTempatLahir, TxTanggal, TxAlamat, TxSelengkapnya;
     Spinner SpJK;
     long id;
     DatePickerDialog datePickerDialog;
@@ -52,22 +52,22 @@ public class EditActivity extends AppCompatActivity {
 
         id = getIntent().getLongExtra(DBHelper.row_id, 0);
 
-        TxNomor = (EditText)findViewById(R.id.txNomor_Edit);
+        TxHarga = (EditText)findViewById(R.id.txHarga_Edit);
         TxNama = (EditText)findViewById(R.id.txNama_Edit);
-        TxTempatLahir = (EditText)findViewById(R.id.txTempatLahir_Edit);
-        TxTanggal = (EditText)findViewById(R.id.txTglLahir_Edit);
-        TxAlamat = (EditText)findViewById(R.id.txAlamat_Edit);
-        SpJK = (Spinner)findViewById(R.id.spJK_Edit);
         imageView = (CircularImageView)findViewById(R.id.image_profile);
-
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-
-        TxTanggal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog();
-            }
-        });
+        TxSelengkapnya = (EditText)findViewById(R.id.txSelengkapnya_Edit);
+//        TxTempatLahir = (EditText)findViewById(R.id.txTempatLahir_Edit);
+//        TxTanggal = (EditText)findViewById(R.id.txTglLahir_Edit);
+//        TxAlamat = (EditText)findViewById(R.id.txAlamat_Edit);
+//        SpJK = (Spinner)findViewById(R.id.spJK_Edit);
+//        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+//
+//        TxTanggal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDateDialog();
+//            }
+//        });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,43 +79,45 @@ public class EditActivity extends AppCompatActivity {
         getData();
     }
 
-    private void showDateDialog(){
-        Calendar calendar = Calendar.getInstance();
-
-        datePickerDialog =  new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                TxTanggal.setText(dateFormatter.format(newDate.getTime()));
-            }
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
+//    private void showDateDialog(){
+//        Calendar calendar = Calendar.getInstance();
+//
+//        datePickerDialog =  new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                Calendar newDate = Calendar.getInstance();
+//                newDate.set(year, month, dayOfMonth);
+//                TxTanggal.setText(dateFormatter.format(newDate.getTime()));
+//            }
+//        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+//        datePickerDialog.show();
+//    }
 
     private void getData(){
         Cursor cursor = helper.oneData(id);
         if(cursor.moveToFirst()){
-            String nomor = cursor.getString(cursor.getColumnIndex(DBHelper.row_nomor));
+            String harga = cursor.getString(cursor.getColumnIndex(DBHelper.row_harga));
             String nama = cursor.getString(cursor.getColumnIndex(DBHelper.row_nama));
-            String tempatLahir = cursor.getString(cursor.getColumnIndex(DBHelper.row_tempatLahir));
-            String jk = cursor.getString(cursor.getColumnIndex(DBHelper.row_jk));
-            String tanggal = cursor.getString(cursor.getColumnIndex(DBHelper.row_tglLahir));
-            String alamat = cursor.getString(cursor.getColumnIndex(DBHelper.row_alamat));
+            String selengkapnya = cursor.getString(cursor.getColumnIndex(DBHelper.row_selengkapnya));
+//            String tempatLahir = cursor.getString(cursor.getColumnIndex(DBHelper.row_tempatLahir));
+//            String jk = cursor.getString(cursor.getColumnIndex(DBHelper.row_jk));
+//            String tanggal = cursor.getString(cursor.getColumnIndex(DBHelper.row_tglLahir));
+//            String alamat = cursor.getString(cursor.getColumnIndex(DBHelper.row_alamat));
             String foto = cursor.getString(cursor.getColumnIndex(DBHelper.row_foto));
 
-            TxNomor.setText(nomor);
+            TxHarga.setText(harga);
+            TxSelengkapnya.setText(selengkapnya);
             TxNama.setText(nama);
 
-            if (jk.equals("Laki-Laki")){
-                SpJK.setSelection(0);
-            }else if(jk.equals("Perempuan")){
-                SpJK.setSelection(1);
-            }
-
-            TxTempatLahir.setText(tempatLahir);
-            TxTanggal.setText(tanggal);
-            TxAlamat.setText(alamat);
+//            if (jk.equals("Laki-Laki")){
+//                SpJK.setSelection(0);
+//            }else if(jk.equals("Perempuan")){
+//                SpJK.setSelection(1);
+//            }
+//
+//            TxTempatLahir.setText(tempatLahir);
+//            TxTanggal.setText(tanggal);
+//            TxAlamat.setText(alamat);
 
             if (foto.equals("null")){
                 imageView.setImageResource(R.drawable.ic_person_black_24dp);
@@ -135,23 +137,25 @@ public class EditActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.save_edit:
-                String nomor = TxNomor.getText().toString().trim();
+                String harga = TxHarga.getText().toString().trim();
                 String nama = TxNama.getText().toString().trim();
-                String tempatLahir = TxTempatLahir.getText().toString().trim();
-                String tanggal = TxTanggal.getText().toString().trim();
-                String alamat = TxAlamat.getText().toString().trim();
-                String jk = SpJK.getSelectedItem().toString().trim();
+                String selengkapnya = TxSelengkapnya.getText().toString().trim();
+//                String tempatLahir = TxTempatLahir.getText().toString().trim();
+//                String tanggal = TxTanggal.getText().toString().trim();
+//                String alamat = TxAlamat.getText().toString().trim();
+//                String jk = SpJK.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
-                values.put(DBHelper.row_nomor, nomor);
                 values.put(DBHelper.row_nama, nama);
-                values.put(DBHelper.row_tempatLahir, tempatLahir);
-                values.put(DBHelper.row_tglLahir, tanggal);
-                values.put(DBHelper.row_alamat, alamat);
-                values.put(DBHelper.row_jk, jk);
+                values.put(DBHelper.row_harga, harga);
+                values.put(DBHelper.row_selengkapnya, selengkapnya);
+//                values.put(DBHelper.row_tempatLahir, tempatLahir);
+//                values.put(DBHelper.row_tglLahir, tanggal);
+//                values.put(DBHelper.row_alamat, alamat);
+//                values.put(DBHelper.row_jk, jk);
                 values.put(DBHelper.row_foto, String.valueOf(uri));
 
-                if (nomor.equals("") || nama.equals("") || tempatLahir.equals("") ||tanggal.equals("") || alamat.equals("")){
+                if (harga.equals("") || nama.equals("") || selengkapnya.equals("")){
                     Toast.makeText(EditActivity.this, "Data Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                 }else {
                     helper.updateData(values, id);

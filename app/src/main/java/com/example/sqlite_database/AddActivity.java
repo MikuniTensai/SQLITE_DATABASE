@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +32,7 @@ import java.util.Locale;
 public class AddActivity extends AppCompatActivity {
 
     DBHelper helper;
-    EditText TxNomor, TxNama, TxTempatLahir, TxTanggal, TxAlamat;
+    EditText TxHarga, TxNama, TxTempatLahir, TxTanggal, TxAlamat, TxSelengkapnya;
     Spinner SpJK;
     long id;
     DatePickerDialog datePickerDialog;
@@ -48,23 +49,23 @@ public class AddActivity extends AppCompatActivity {
 
         id = getIntent().getLongExtra(DBHelper.row_id, 0);
 
-        TxNomor = (EditText)findViewById(R.id.txNomor_Add);
+        TxHarga = (EditText)findViewById(R.id.txHarga_Add);
         TxNama = (EditText)findViewById(R.id.txNama_Add);
-        TxTempatLahir = (EditText)findViewById(R.id.txTempatLahir_Add);
-        TxTanggal = (EditText)findViewById(R.id.txTglLahir_Add);
-        TxAlamat = (EditText)findViewById(R.id.txAlamat_Add);
-        SpJK = (Spinner)findViewById(R.id.spJK_Add);
+        TxSelengkapnya = (EditText)findViewById(R.id.txSelengkapnya_Add);
         imageView = (CircularImageView)findViewById(R.id.image_profile);
-
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-
-        TxTanggal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog();
-            }
-        });
-
+//        TxTempatLahir = (EditText)findViewById(R.id.txTempatLahir_Add);
+//        TxTanggal = (EditText)findViewById(R.id.txTglLahir_Add);
+//        TxAlamat = (EditText)findViewById(R.id.txAlamat_Add);
+//        SpJK = (Spinner)findViewById(R.id.spJK_Add);
+//
+//        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+//
+//        TxTanggal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDateDialog();
+//            }
+//        });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,19 +75,19 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    private void showDateDialog(){
-        Calendar calendar = Calendar.getInstance();
-
-        datePickerDialog =  new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                    TxTanggal.setText(dateFormatter.format(newDate.getTime()));
-            }
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
+//    private void showDateDialog(){
+//        Calendar calendar = Calendar.getInstance();
+//
+//        datePickerDialog =  new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                Calendar newDate = Calendar.getInstance();
+//                newDate.set(year, month, dayOfMonth);
+//                    TxTanggal.setText(dateFormatter.format(newDate.getTime()));
+//            }
+//        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+//        datePickerDialog.show();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,23 +99,26 @@ public class AddActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.save_add:
-                String nomor = TxNomor.getText().toString().trim();
+                String harga = TxHarga.getText().toString().trim();
                 String nama = TxNama.getText().toString().trim();
-                String tempatLahir = TxTempatLahir.getText().toString().trim();
-                String tanggal = TxTanggal.getText().toString().trim();
-                String alamat = TxAlamat.getText().toString().trim();
-                String jk = SpJK.getSelectedItem().toString().trim();
+                String selengkapnya = TxSelengkapnya.getText().toString().trim();
+//                String tempatLahir = TxTempatLahir.getText().toString().trim();
+//                String tanggal = TxTanggal.getText().toString().trim();
+//                String alamat = TxAlamat.getText().toString().trim();
+//                String jk = SpJK.getSelectedItem().toString().trim();
 
                 ContentValues values = new ContentValues();
-                values.put(DBHelper.row_nomor, nomor);
                 values.put(DBHelper.row_nama, nama);
-                values.put(DBHelper.row_tempatLahir, tempatLahir);
-                values.put(DBHelper.row_tglLahir, tanggal);
-                values.put(DBHelper.row_alamat, alamat);
-                values.put(DBHelper.row_jk, jk);
+                values.put(DBHelper.row_harga, harga);
+                values.put(DBHelper.row_selengkapnya, selengkapnya);
+//                values.put(DBHelper.row_tempatLahir, tempatLahir);
+//                values.put(DBHelper.row_tglLahir, tanggal);
+//                values.put(DBHelper.row_alamat, alamat);
+//                values.put(DBHelper.row_jk, jk);
+//                values.put(DBHelper.row_harga, harga);
                 values.put(DBHelper.row_foto, String.valueOf(uri));
 
-                if (nomor.equals("") || nama.equals("") || tempatLahir.equals("") ||tanggal.equals("") || alamat.equals("")){
+                if (harga.equals("") || nama.equals("") || selengkapnya.equals("")){
                     Toast.makeText(AddActivity.this, "Data Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                 }else {
                     helper.insertData(values);
