@@ -6,26 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper_Account extends SQLiteOpenHelper {
 
-    public static final String database_name = "db_biodata";
+    public static final String database_name = "db_rakitkomputer";
     public static final String table_name = "tabel_biodata";
-
-    //done
     public static final String row_id = "_id";
     public static final String row_nama = "Nama";
     public static final String row_foto = "Foto";
     public static final String row_harga = "harga";
     public static final String row_selengkapnya = "selengkapnya";
-    //belom
-//    public static final String row_jk = "JK";
-//    public static final String row_tempatLahir = "TempatLahir";
-//    public static final String row_tglLahir = "Tanggal";
-//    public static final String row_alamat = "Alamat";
 
     private SQLiteDatabase db;
 
-    public DBHelper(Context context) {
+    //DATA ITEM
+    public DBHelper_Account(Context context) {
         super(context, database_name, null, 2);
         db = getWritableDatabase();
     }
@@ -68,4 +62,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteData(long id){
         db.delete(table_name, row_id + "=" + id, null);
     }
+
+    //END DATA ITEM
 }

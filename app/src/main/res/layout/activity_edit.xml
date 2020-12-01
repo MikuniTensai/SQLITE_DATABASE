@@ -58,13 +58,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Spesifiaksi"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:lines="10"
+                android:inputType="text"/>
 
             <EditText
                 android:id="@+id/txSelengkapnya_Edit"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences"/>
+                android:maxLines="4"
+                android:singleLine="false"/>
 
     <!--        <TextView-->
     <!--            android:layout_width="wrap_content"-->

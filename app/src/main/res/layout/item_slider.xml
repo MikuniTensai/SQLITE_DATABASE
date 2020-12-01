@@ -7,7 +7,7 @@
         android:id="@+id/image"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
-        android:src="@drawable/appbiodata"
+        android:src="@drawable/rakitkomputer"
         android:scaleType="fitCenter"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

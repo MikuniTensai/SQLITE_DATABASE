@@ -1,5 +1,12 @@
 package com.example.sqlite_database;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,13 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -36,7 +36,7 @@ import com.example.sqlite_database.adapter.CustomCursorAdapter;
 import com.example.sqlite_database.adapter.ViewPagerAdapter;
 import com.example.sqlite_database.helper.DBHelper_Account;
 import com.example.sqlite_database.helper.DBHelper_Item;
-import com.example.sqlite_database.helper.InfoActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -44,26 +44,23 @@ import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-
+public class AdminActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     ListView listView;
     DBHelper_Account helper;
-    DBHelper_Item MyDB;
-
+    LayoutInflater inflater;
     View dialogView;
     TextView Tv_Harga, Tv_Nama, Tv_Selengkapnya;
-    LayoutInflater inflater;
     ImageView im_Foto;
+    DBHelper_Item MyDB;
 
     private static ViewPager mPager;
     private static int currentPage = 0;
-    private static final Integer[] img = {R.drawable.view1, R.drawable.view2, R.drawable.view3, R.drawable.view4, R.drawable.view5, R.drawable.view6, R.drawable.view7, R.drawable.view8};
+    private static final Integer[] img = {R.drawable.view1,R.drawable.view2, R.drawable.view3, R.drawable.view4, R.drawable.view5, R.drawable.view6, R.drawable.view7, R.drawable.view8};
     private ArrayList<Integer> ImgArray = new ArrayList<Integer>();
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,8 +68,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_contact_person);
         toolbar.setOverflowIcon(drawable);
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminActivity.this, AddActivity.class));
+            }
+        });
+
         helper = new DBHelper_Account(this);
-        listView = findViewById(R.id.list_data);
+        listView = (ListView)findViewById(R.id.list_data);
         listView.setOnItemClickListener(this);
 
         init();
@@ -81,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
+        getMenuInflater().inflate(R.menu.menu_main_admin, menu);
         return true;
     }
 
@@ -90,19 +94,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        Intent intent;
         if (id == R.id.action_settings) {
-            intent = new Intent(this, LoginActivity.class);
-        } else if (id == R.id.action_info) {
-            intent = new Intent(this, InfoActivity.class);
-        } else {
-            intent = new Intent(this, AdminActivity.class);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
-        startActivity(intent);
+
+        else if (id == R.id.action_logout) {
+            MyDB.HapusData();
+            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setListView(){
+        Cursor cursor = helper.allData();
+        CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);
+        listView.setAdapter(customCursorAdapter);
     }
 
     @Override
@@ -112,17 +125,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         final Cursor cur = helper.oneData(id);
         cur.moveToFirst();
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(cur.getString(cur.getColumnIndex(DBHelper_Account.row_nama)));
+        final AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+        builder.setTitle("Pilih Opsi");
 
-        String[] options = {"Lihat Data", "Contact"};
+        String[] options = {"Lihat Data", "Edit Data", "Hapus Data"};
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case 0:
-                        final AlertDialog.Builder viewData = new AlertDialog.Builder(MainActivity.this);
+                        final AlertDialog.Builder viewData = new AlertDialog.Builder(AdminActivity.this);
                         inflater = getLayoutInflater();
                         dialogView = inflater.inflate(R.layout.view_data, null);
                         viewData.setView(dialogView);
@@ -161,8 +174,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
                 switch (which){
                     case 1:
-                        Intent infodata = new Intent(MainActivity.this, InfoActivity.class);
-                        startActivity(infodata);
+                        Intent iddata = new Intent(AdminActivity.this, EditActivity.class);
+                        iddata.putExtra(DBHelper_Account.row_id, id);
+                        startActivity(iddata);
+                }
+                switch (which){
+                    case 2:
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(AdminActivity.this);
+                        builder1.setMessage("Data ini akan dihapus.");
+                        builder1.setCancelable(true);
+                        builder1.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                helper.deleteData(id);
+                                Toast.makeText(AdminActivity.this, "Data Terhapus", Toast.LENGTH_SHORT).show();
+                                setListView();
+                            }
+                        });
+                        builder1.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alertDialog = builder1.create();
+                        alertDialog.show();
                 }
             }
         });
@@ -171,24 +207,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         dialog.show();
     }
 
-    public void setListView() {
-        Cursor cursor = helper.allData();
-        CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);
-        listView.setAdapter(customCursorAdapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setListView();
-    }
-
-    private void init() {
+    private void init () {
         for (int i = 0; i < img.length; i++)
             ImgArray.add(img[i]);
 
         mPager = findViewById(R.id.pager);
-        mPager.setAdapter(new ViewPagerAdapter(MainActivity.this, ImgArray));
+        mPager.setAdapter(new ViewPagerAdapter(AdminActivity.this, ImgArray));
         CircleIndicator indicator = findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
@@ -202,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
+        //Auto start
         Timer swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {
             @Override
@@ -209,5 +234,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 handler.post(Update);
             }
         }, 5000, 5000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setListView();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setListView();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        setListView();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setListView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setListView();
     }
 }

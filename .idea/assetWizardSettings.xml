@@ -8,6 +8,17 @@
             <PersistentState>
               <option name="children">
                 <map>
+                  <entry key="confirmationStep">
+                    <value>
+                      <PersistentState>
+                        <option name="values">
+                          <map>
+                            <entry key="resourceDirectory" value="release" />
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
                   <entry key="imageAssetPanel">
                     <value>
                       <PersistentState>
@@ -141,8 +152,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Aichunn\Desktop\logo.png" />
-                                                <entry key="paddingPercent" value="20" />
+                                                <entry key="imagePath" value="C:\Users\Aichunn\Desktop\a6a28a9b-6490-47b7-9ee0-05433483b9d2_200x200.png" />
+                                                <entry key="paddingPercent" value="25" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -155,6 +166,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -166,6 +178,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -176,8 +189,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
+                                      <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="imageAsset" value="C:\Users\Aichunn\Desktop\logo.png" />
+                                      <entry key="imageAsset" value="C:\Users\Aichunn\Desktop\a6a28a9b-6490-47b7-9ee0-05433483b9d2_200x200.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -332,7 +346,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/add_circle/baseline_add_circle_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/account_box/baseline_account_box_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -342,7 +356,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_add" />
+                            <entry key="outputName" value="ic_contact_person" />
                             <entry key="sourceFile" value="E:\MOBILE_PROGRAMING\PRAKTIKUM\Pertemuan_7" />
                           </map>
                         </option>

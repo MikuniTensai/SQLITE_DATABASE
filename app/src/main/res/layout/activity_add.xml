@@ -54,7 +54,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txSelengkapnya_Add"
+                android:id="@+id/txNama_Add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences"/>
@@ -66,10 +66,11 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txNama_Add"
-                android:layout_width="match_parent"
+                android:id="@+id/txSelengkapnya_Add"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences"/>
+                android:maxLines="4"
+                android:singleLine="false" />
 
     <!--        <TextView-->
     <!--            android:layout_width="wrap_content"-->

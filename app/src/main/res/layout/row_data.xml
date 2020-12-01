@@ -36,16 +36,18 @@
                 android:text="Nama"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_margin="10dp"/>
+                android:layout_marginLeft="8dp"/>
 
             <TextView
                 android:id="@+id/listSelengkapnya"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Spesifikasi"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_margin="10dp"/>
+                android:textSize="12sp"
+                android:lines="5"
+                android:maxLines="5"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"/>
 
         </LinearLayout>
 
